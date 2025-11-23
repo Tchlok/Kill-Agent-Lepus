@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfji5h0q0o43b"]
+
+[ext_resource type="Script" uid="uid://cnep2eoq5tvt6" path="res://Scripts/Target.gd" id="1_wflq0"]
+[ext_resource type="Texture2D" uid="uid://he1rnrh2q51y" path="res://icon.svg" id="2_5hp3g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wflq0"]
+radius = 346.72
+
+[node name="TargetCiv" type="Area2D"]
+script = ExtResource("1_wflq0")
+targetType = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.25882354, 1, 1)
+rotation = -0.014340222
+scale = Vector2(4.44, 4.44)
+texture = ExtResource("2_5hp3g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("CircleShape2D_wflq0")
