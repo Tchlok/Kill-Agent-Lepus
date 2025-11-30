@@ -5,12 +5,37 @@ enum GameState{Start,ZoomUp,Game,Expired,GunFlash,Ended,Restart}
 var gameState : GameState
 @export var endings : Endings
 @export var camera : Camera2D
+@export var spawn : Spawn
+
+@export var crosshairSpring : Node2D
+@export var crosshairShake : Node2D
+@export var crosshairAnim : AnimationPlayer
+@export var crosshairRotate : Node2D
+@export var crosshairRotMod : float = 8
 
 @export var startPosition : Vector2
 @export var colors : Array[Color]
 @export var colorRect : ColorRect
 
-@export var gameCrosshairSpeed : float = 100
+@export var gameBoundsX : float
+@export var gameBoundsTop : float
+@export var gameBoundsBottom : float
+
+@export var gameMaxMoveSpeed : float
+@export var gameCamAcceleration : float
+@export var gameCamDrag : float
+var gameCamVelocity : Vector2
+
+@export var gameBaseRigid : float
+@export var gameBaseDamp : float
+var gameSteadyT : float
+var swayIntensity : float
+@export var gameCamSwayDecay : float
+@export var gameCamSwayGain : float
+@export var gameCamSwayMin : float
+@export var gameCamSwayMag : float
+@export var gameCamSwaySpeed : float
+
 
 @export var zoomUpPosition : Vector2
 @export var zoomUpCurve : Curve
@@ -49,14 +74,17 @@ func _process(delta):
 		moveAxis+=Vector2.LEFT
 	moveAxis=moveAxis.normalized()
 
-
-	print("Game State : " + str(gameState))
+	crosshairSpring.position+=crossVelocity*delta
+	crosshairRotate.rotation_degrees=(crossVelocity.x/gameMaxMoveSpeed)*crosshairRotMod
 	match gameState:
 		GameState.Start:
 			if Input.is_action_just_pressed("Shoot"):
 				_newState(GameState.ZoomUp)
+				crosshairAnim.play("CrosshairOn")
+				spawn.spawn()
 		GameState.ZoomUp:
-			position = startPosition.lerp(zoomUpPosition, zoomUpCurve.sample(MathS.Clamp01(_t/zoomUpDuration)))
+			crosshairSpring.position=camera.position
+			camera.position = startPosition.lerp(zoomUpPosition, zoomUpCurve.sample(MathS.Clamp01(_t/zoomUpDuration)))
 			if _t>=zoomUpDuration:
 				_newState(GameState.Game)
 		GameState.Game:
@@ -100,7 +128,23 @@ func _physics_process(delta):
 		GameState.ZoomUp:
 			pass
 		GameState.Game:
-			position+=moveAxis*delta*gameCrosshairSpeed
+			if moveAxis==Vector2.ZERO:
+				gameCamVelocity=Vector2.ZERO
+				swayIntensity-=gameCamSwayDecay*delta
+			else:
+				gameCamVelocity+=moveAxis*delta*gameCamAcceleration
+				gameCamVelocity-=moveAxis*delta*gameCamDrag
+				swayIntensity+=gameCamSwayGain*delta
+
+			swayIntensity=clamp(swayIntensity,gameCamSwayMin,1)
+			gameCamVelocity=gameCamVelocity.limit_length(gameMaxMoveSpeed)
+			camera.position+=gameCamVelocity*delta
+			
+			var sway : Vector2
+
+			sway.x=sin(_t*gameCamSwaySpeed)*2*gameCamSwayMag*swayIntensity
+			sway.y=sin(_t*0.5*gameCamSwaySpeed)*gameCamSwayMag*swayIntensity
+			crosshairShake.position=sway
 		GameState.GunFlash:
 			pass
 		GameState.Expired:
@@ -110,6 +154,17 @@ func _physics_process(delta):
 		GameState.Restart:
 			pass
 	_tPhys+=delta
+
+	var crossRigid : float = gameBaseRigid
+	var crossDamp : float = gameBaseDamp
+	var crossToCam : Vector2 = crosshairSpring.position-camera.position
+	crossVelocity+= -crossRigid*crossToCam-(crossDamp*crossVelocity)
+
+	camera.position=Vector2(clamp(camera.position.x,-gameBoundsX, gameBoundsX), clamp(camera.position.y,gameBoundsTop,gameBoundsBottom))
+
+
+var crossVelocity : Vector2
+
 var _t : float = 0
 var _tPhys : float = 0
 
@@ -124,7 +179,7 @@ func shoot():
 
 	var spaceState = get_world_2d().direct_space_state
 	var query = PhysicsPointQueryParameters2D.new()
-	query.position=camera.global_position
+	query.position=crosshairRotate.global_position
 	query.collide_with_areas=true
 	query.collide_with_bodies=false
 	query.collision_mask=1

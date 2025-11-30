@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmiqrbulmu483"]
+
+[ext_resource type="Script" uid="uid://cnep2eoq5tvt6" path="res://Scripts/Target.gd" id="1_53dwm"]
+[ext_resource type="Texture2D" uid="uid://bj40py1qtljf1" path="res://Sprites/Target/Tex_TargetCivD.tres" id="2_53dwm"]
+[ext_resource type="Texture2D" uid="uid://bggntdhkvd5o8" path="res://Sprites/Target/Detail/Tex_DetailTargetCivD.tres" id="3_rj1kb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ademi"]
+size = Vector2(143, 240.5)
+
+[node name="TargetCivD" type="Area2D"]
+script = ExtResource("1_53dwm")
+
+[node name="Main" type="Sprite2D" parent="."]
+modulate = Color(0.101960786, 0.023529412, 0.21176471, 1)
+position = Vector2(0, -123)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_53dwm")
+
+[node name="Secondary" type="Sprite2D" parent="."]
+modulate = Color(0.12941177, 0.8745098, 0, 1)
+position = Vector2(0, -123)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_rj1kb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -107.75)
+shape = SubResource("RectangleShape2D_ademi")

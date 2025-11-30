@@ -1,19 +1,25 @@
-[gd_scene load_steps=19 format=3 uid="uid://dkvs4qw4w51w6"]
+[gd_scene load_steps=29 format=3 uid="uid://dkvs4qw4w51w6"]
 
 [ext_resource type="Script" uid="uid://phwnqa6bomy7" path="res://Scripts/game.gd" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bvcsurj3ml6jv" path="res://Scripts/Endings.gd" id="2_bo1nx"]
-[ext_resource type="Texture2D" uid="uid://he1rnrh2q51y" path="res://icon.svg" id="2_fdnlq"]
 [ext_resource type="Texture2D" uid="uid://cos4krcshekyb" path="res://Sprites/Endings/Tex_Ending_Bottle.png" id="3_8gbba"]
 [ext_resource type="Texture2D" uid="uid://c6axsqyi08jbc" path="res://Sprites/Endings/Tex_Ending_Civ_0.png" id="3_344ge"]
 [ext_resource type="Texture2D" uid="uid://ddciusf2nxm1a" path="res://Sprites/Endings/Tex_Ending_Hare_0.png" id="4_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://biknpesceou7p" path="res://Sprites/Endings/Tex_Ending_Near_Miss.png" id="5_hptm8"]
 [ext_resource type="Texture2D" uid="uid://dpmdsdjp11uhn" path="res://Sprites/Endings/Tex_Ending_Miss.png" id="6_d1ilt"]
 [ext_resource type="Texture2D" uid="uid://bvbxwxwrcxurs" path="res://Sprites/Endings/Tex_Ending_Moon.png" id="8_6iyac"]
-[ext_resource type="PackedScene" uid="uid://d185qt6rcu7f0" path="res://Scenes/Targets/TargetHare.tscn" id="9_ynf5e"]
-[ext_resource type="PackedScene" uid="uid://xe0h8e730862" path="res://Scenes/Targets/TargetCiv.tscn" id="10_hptm8"]
+[ext_resource type="PackedScene" uid="uid://co4x3u80q6y81" path="res://Scenes/Targets/TargetCivA.tscn" id="9_ynf5e"]
+[ext_resource type="Texture2D" uid="uid://csbq3ygrahpi7" path="res://Sprites/Tex_ScopeDot.png" id="10_h1bgf"]
+[ext_resource type="PackedScene" uid="uid://xe0h8e730862" path="res://Scenes/Targets/TargetMain.tscn" id="10_hptm8"]
 [ext_resource type="Texture2D" uid="uid://g21k2ikb04xe" path="res://Sprites/Endings/Tex_Ending_Expire.png" id="10_jkdf5"]
-[ext_resource type="PackedScene" uid="uid://bfji5h0q0o43b" path="res://Scenes/Targets/TargetMoon.tscn" id="11_6iyac"]
-[ext_resource type="PackedScene" uid="uid://hyfnamrxkdw7" path="res://Scenes/Targets/TargetBottle.tscn" id="12_fdnlq"]
+[ext_resource type="Texture2D" uid="uid://chkv424ms0ptg" path="res://Sprites/Tex_ScopeMask.png" id="11_k12tt"]
+[ext_resource type="Shader" uid="uid://drmteuvsci8f3" path="res://skyGradient.gdshader" id="12_6iyac"]
+[ext_resource type="Texture2D" uid="uid://bpcm5kbghb3jf" path="res://Sprites/Tex_ScopeNotch.png" id="13_b3802"]
+[ext_resource type="Script" uid="uid://yhx6rbu6kpv4" path="res://Scripts/Spawn.gd" id="13_fdnlq"]
+[ext_resource type="PackedScene" uid="uid://dpo76kgdepwob" path="res://Scenes/Layouts/Layout_1.tscn" id="15_hibaj"]
+[ext_resource type="PackedScene" uid="uid://ccx3u8sgka2d" path="res://Scenes/Targets/TargetCivB.tscn" id="18_hibaj"]
+[ext_resource type="PackedScene" uid="uid://b6x668g670q4d" path="res://Scenes/Targets/TargetCivC.tscn" id="19_pdsj5"]
+[ext_resource type="PackedScene" uid="uid://dmiqrbulmu483" path="res://Scenes/Targets/TargetCivD.tscn" id="20_ee4r6"]
 
 [sub_resource type="Curve" id="Curve_jjgbg"]
 _limits = [0.0, 1.2, 0.0, 1.0]
@@ -32,16 +38,196 @@ point_count = 4
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.44306934, 1), 0.0, 0.0, 0, 0, Vector2(0.62128717, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
+[sub_resource type="Animation" id="Animation_b3802"]
+resource_name = "CrosshairOn"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.46666667),
+"transitions": PackedFloat32Array(1.4640858, 1),
+"update": 0,
+"values": [Vector2(2.5, 2.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Notches/Notch/Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8, 0.96666664),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2000, 0), Vector2(-2000, 0), Vector2(-1200, 0), Vector2(-1350, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Notches/Notch2/Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8, 0.96666664),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2000, 0), Vector2(-2000, 0), Vector2(-1200, 0), Vector2(-1350, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Notches/Notch3/Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8, 0.96666664),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2000, 0), Vector2(-2000, 0), Vector2(-1200, 0), Vector2(-1350, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Notches/Notch4/Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8, 0.96666664),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2000, 0), Vector2(-2000, 0), Vector2(-1200, 0), Vector2(-1350, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Dot:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.93333334, 1.0666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(0, 0), Vector2(0.25, 0.231)]
+}
+
+[sub_resource type="Animation" id="Animation_fevyy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Notches/Notch/Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1350, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Notches/Notch2/Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1350, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Notches/Notch3/Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1350, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Notches/Notch4/Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1350, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Dot:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.25, 0.231)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fevyy"]
+_data = {
+&"CrosshairOn": SubResource("Animation_b3802"),
+&"RESET": SubResource("Animation_fevyy")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fdnlq"]
+shader = ExtResource("12_6iyac")
+shader_parameter/cTop = Color(0.101960786, 0.023529412, 0.21176471, 1)
+shader_parameter/cBottom = Color(0.12941177, 0.8745098, 0, 1)
+
 [node name="main" type="Node2D"]
 
-[node name="game" type="Node2D" parent="." node_paths=PackedStringArray("endings", "camera", "colorRect")]
+[node name="game" type="Node2D" parent="." node_paths=PackedStringArray("endings", "camera", "spawn", "crosshairSpring", "crosshairShake", "crosshairAnim", "crosshairRotate", "colorRect")]
 position = Vector2(-5, -2502)
 script = ExtResource("1_jjgbg")
 endings = NodePath("Camera2D/Endings")
 camera = NodePath("Camera2D")
+spawn = NodePath("../spawn")
+crosshairSpring = NodePath("CrosshairSpring")
+crosshairShake = NodePath("CrosshairSpring/CrosshairShake")
+crosshairAnim = NodePath("CrosshairSpring/CrosshairShake/CrosshairVisuals/AnimationPlayer")
+crosshairRotate = NodePath("CrosshairSpring/CrosshairShake/CrosshairVisuals/Notches")
+crosshairRotMod = 12.0
 colors = Array[Color]([Color(0.16078432, 1, 0.015686275, 1), Color(0.05490196, 0, 0.06666667, 1), Color(0.05490196, 0, 0.06666667, 1), Color(0.21960784, 0.078431375, 0.24313726, 1), Color(0.26666668, 0.08627451, 0.3019608, 1), Color(0.26666668, 0.08627451, 0.3019608, 1), Color(0.4150485, 0.1544118, 0.46614218, 1)])
 colorRect = NodePath("Camera2D/ColorRect")
-gameCrosshairSpeed = 900.0
+gameBoundsX = 4000.0
+gameBoundsTop = -6500.0
+gameBoundsBottom = -500.0
+gameMaxMoveSpeed = 2000.0
+gameCamAcceleration = 12000.0
+gameCamDrag = 5000.0
+gameBaseRigid = 2.0
+gameBaseDamp = 0.145
+gameCamSwayDecay = 1.0
+gameCamSwayGain = 1.5
+gameCamSwayMin = 0.3
+gameCamSwayMag = 80.0
+gameCamSwaySpeed = 2.0
 zoomUpPosition = Vector2(0, -3600)
 zoomUpCurve = SubResource("Curve_jjgbg")
 zoomUpDuration = 1.0
@@ -57,14 +243,7 @@ restartDuration = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="game"]
 z_index = 10
-
-[node name="Crosshair" type="Node2D" parent="game/Camera2D"]
-
-[node name="Dot" type="Sprite2D" parent="game/Camera2D/Crosshair"]
-z_index = -1
-rotation = 0.8978046
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_fdnlq")
+zoom = Vector2(0.6, 0.6)
 
 [node name="ColorRect" type="ColorRect" parent="game/Camera2D"]
 z_index = 1000
@@ -74,12 +253,12 @@ offset_right = 2035.0
 offset_bottom = 2032.0
 color = Color(1, 1, 1, 0)
 
-[node name="Endings" type="Node2D" parent="game/Camera2D" node_paths=PackedStringArray("sprite", "title", "comment", "hare")]
+[node name="Endings" type="Node2D" parent="game/Camera2D" node_paths=PackedStringArray("sprite", "title", "comment")]
+visible = false
 script = ExtResource("2_bo1nx")
 sprite = NodePath("Sprite2D")
 title = NodePath("Title")
 comment = NodePath("Comment")
-hare = NodePath("../../../targets/TargetHare")
 _civTex = Array[Texture2D]([ExtResource("3_344ge")])
 _hareTex = Array[Texture2D]([ExtResource("4_ynf5e")])
 _nearMissTex = ExtResource("5_hptm8")
@@ -109,37 +288,120 @@ offset_bottom = 970.0
 theme_override_font_sizes/normal_font_size = 90
 text = "COMMENT"
 
+[node name="CrosshairSpring" type="Node2D" parent="game"]
+z_index = 200
+
+[node name="CrosshairShake" type="Node2D" parent="game/CrosshairSpring"]
+
+[node name="CrosshairVisuals" type="Node2D" parent="game/CrosshairSpring/CrosshairShake"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals"]
+libraries = {
+&"": SubResource("AnimationLibrary_fevyy")
+}
+
+[node name="Dot" type="Sprite2D" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals"]
+modulate = Color(0.830375, 0.7735, 0.91, 1)
+z_index = -1
+position = Vector2(1.1999999, 0)
+rotation = -0.21285379
+scale = Vector2(0.25, 0.231)
+texture = ExtResource("10_h1bgf")
+
+[node name="TexScopeMask" type="Sprite2D" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals"]
+modulate = Color(0.101960786, 0.023529412, 0.21176471, 1)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("11_k12tt")
+
+[node name="ColorRect" type="ColorRect" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals"]
+offset_left = 1623.0
+offset_top = -7243.0
+offset_right = 10823.0
+offset_bottom = 6848.0
+color = Color(0.101960786, 0.023529412, 0.21176471, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals"]
+offset_left = -10888.0
+offset_top = -7769.0
+offset_right = -1688.0
+offset_bottom = 6322.0
+color = Color(0.101960786, 0.023529412, 0.21176471, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals"]
+offset_left = -6902.0
+offset_top = -1658.0
+offset_right = 2298.0
+offset_bottom = 12433.0
+rotation = -1.5707964
+color = Color(0.101960786, 0.023529412, 0.21176471, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals"]
+offset_left = -6453.0
+offset_top = 10610.0
+offset_right = 2747.0
+offset_bottom = 24701.0
+rotation = -1.5707964
+color = Color(0.101960786, 0.023529412, 0.21176471, 1)
+
+[node name="Notches" type="Node2D" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals"]
+modulate = Color(0.101960786, 0.023529412, 0.21176471, 1)
+
+[node name="Notch" type="Node2D" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals/Notches"]
+
+[node name="Sprite2D" type="Sprite2D" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals/Notches/Notch"]
+position = Vector2(-1350, 0)
+scale = Vector2(0.545, 0.545)
+texture = ExtResource("13_b3802")
+
+[node name="Notch2" type="Node2D" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals/Notches"]
+rotation = 1.5707964
+
+[node name="Sprite2D" type="Sprite2D" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals/Notches/Notch2"]
+position = Vector2(-1350, 0)
+scale = Vector2(0.545, 0.545)
+texture = ExtResource("13_b3802")
+
+[node name="Notch3" type="Node2D" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals/Notches"]
+rotation = 3.1415927
+
+[node name="Sprite2D" type="Sprite2D" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals/Notches/Notch3"]
+position = Vector2(-1350, 0)
+scale = Vector2(0.545, 0.545)
+texture = ExtResource("13_b3802")
+
+[node name="Notch4" type="Node2D" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals/Notches"]
+rotation = 4.712389
+
+[node name="Sprite2D" type="Sprite2D" parent="game/CrosshairSpring/CrosshairShake/CrosshairVisuals/Notches/Notch4"]
+position = Vector2(-1350, 0)
+scale = Vector2(0.545, 0.545)
+texture = ExtResource("13_b3802")
+
 [node name="Start" type="Node2D" parent="."]
+z_index = 100
 
 [node name="ColorRect" type="ColorRect" parent="Start"]
-offset_left = -10753.0
+offset_left = -12410.0
 offset_top = -1206.0
 offset_right = 13831.0
-offset_bottom = 2410.0
-color = Color(0.41568628, 0.15294118, 0.46666667, 1)
+offset_bottom = 7603.0
+color = Color(0.093047045, 0.2479955, 0.12825772, 1)
 
-[node name="targets" type="Node2D" parent="."]
+[node name="Sky2" type="Node2D" parent="."]
+position = Vector2(195, -2500)
 
-[node name="TargetHare" parent="targets" instance=ExtResource("9_ynf5e")]
-position = Vector2(0, -3600)
+[node name="Sky" type="ColorRect" parent="Sky2"]
+z_index = -100
+material = SubResource("ShaderMaterial_fdnlq")
+offset_left = -6579.0
+offset_top = -6882.0
+offset_right = 6214.0
+offset_bottom = 15411.0
+color = Color(0.1033332, 0.023251556, 0.21055165, 1)
 
-[node name="TargetHare2" parent="targets" instance=ExtResource("9_ynf5e")]
-position = Vector2(534, -1413)
-
-[node name="TargetCiv" parent="targets" instance=ExtResource("10_hptm8")]
-position = Vector2(-928, -2337)
-
-[node name="TargetCiv2" parent="targets" instance=ExtResource("10_hptm8")]
-position = Vector2(1520, -3298)
-
-[node name="TargetCiv3" parent="targets" instance=ExtResource("10_hptm8")]
-position = Vector2(2069, -2194)
-
-[node name="TargetCiv4" parent="targets" instance=ExtResource("11_6iyac")]
-position = Vector2(1039, -2692)
-
-[node name="TargetCiv5" parent="targets" instance=ExtResource("12_fdnlq")]
-position = Vector2(-364, -2907)
-
-[node name="TargetCiv6" parent="targets" instance=ExtResource("12_fdnlq")]
-position = Vector2(-943, -3145)
+[node name="spawn" type="Node2D" parent="."]
+script = ExtResource("13_fdnlq")
+layouts = Array[PackedScene]([ExtResource("15_hibaj")])
+spawnPointUsageRatio = 1.0
+mainTargetPacked = ExtResource("10_hptm8")
+civTargets = Array[PackedScene]([ExtResource("9_ynf5e"), ExtResource("18_hibaj"), ExtResource("19_pdsj5"), ExtResource("20_ee4r6")])

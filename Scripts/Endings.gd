@@ -11,7 +11,7 @@ var flagGunFired : bool
 @export var title : RichTextLabel
 @export var comment : RichTextLabel
 
-@export var hare : Target
+var mainTarget : Target
 @export var nearMissThreshold : float = 300
 
 func resetEndingFlags():
@@ -39,7 +39,7 @@ func loadEndingVisuals():
 		_endingMoon()
 		return
 
-	if global_position.distance_to(hare.global_position)<=nearMissThreshold:
+	if false and global_position.distance_to(mainTarget.global_position)<=nearMissThreshold:
 		_endingNearMiss()
 	else:
 		_endingMiss()
