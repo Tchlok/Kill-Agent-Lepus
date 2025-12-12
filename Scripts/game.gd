@@ -63,8 +63,11 @@ var swayIntensity : float
 @export var restartCurve : Curve
 @export var restartDuration : float
 
+var musicPlayer : AudioStreamPlayer
 var moveAxis : Vector2
+var musicMute : bool
 func _enter_tree():
+	musicMute=false
 	camera.position=startPosition
 	difficultyIndex=1
 	updateDifficulty(0)
@@ -74,6 +77,10 @@ func _ready():
 	endings.resetEndingFlags()
 
 func _process(delta):
+	if Input.is_action_just_pressed("Mute"):
+		musicMute= not musicMute
+		AudioServer.set_bus_mute(1,musicMute)
+
 	moveAxis=Vector2.ZERO
 	if Input.is_action_pressed("MoveUp"):
 		moveAxis+=Vector2.UP
@@ -105,6 +112,8 @@ func _process(delta):
 			crosshairSpring.position=camera.position
 			if _t>=zoomUpDuration:
 				_newState(GameState.Game)
+				musicPlayer = SoundSpawner.SpawnFromName("Music")
+				musicPlayer.bus="Music"
 		GameState.Game:
 			if Input.is_action_just_pressed("Shoot"):
 				shoot()
@@ -240,8 +249,10 @@ func _newState(newState : GameState):
 
 
 func shoot():
+	if musicPlayer!=null:
+		musicPlayer.queue_free()
+		musicPlayer=null
 	endings.flagGunFired=true
-
 	var spaceState = get_world_2d().direct_space_state
 	var query = PhysicsPointQueryParameters2D.new()
 	query.position=crosshairRotate.global_position

@@ -306,7 +306,7 @@ script = ExtResource("2_bo1nx")
 sprite = NodePath("Sprite2D")
 title = NodePath("Title")
 commentLabel = NodePath("Comment")
-nearMissThreshold = 400.0
+nearMissThreshold = 600.0
 commentFallback = "..."
 commentsCiv = Array[String](["WHAT ARE YOU DOING? THAT WAS A CIVILIAN!", "THIS WILL BE ONE EXPENSIVE COVERUP...", "THERE GOES MY ENTIRE VACATION...", "ARE YOU DOING THIS ON PURPOSE?", "WHAT IS WRONG WITH YOU?", "STOP IT! STOP IT! STOOOOOP!!", "STOP. KILLING. CIVILIANS.", "STOP IT YOU ████", "YOU ARE EVERYTHING THAT IS WRONG WITH THE WORLD.", "YOU DISGUST ME.", "I HATE YOU MORE THAN YOU COULD EVER IMAGINE.", "STOP IT YOU █████ ███████  ", "███████ ███", "█████████ ███ █████ ███ ███ ███", "...........", "████ YOU! I QUIT."])
 _civTex = Array[Texture2D]([ExtResource("3_344ge")])
@@ -318,7 +318,7 @@ commentsMiss = Array[String](["WHAT WAS THAT?", "WHAT ARE YOU EVEN SHOOTING AT?"
 _missTex = ExtResource("6_d1ilt")
 commentsBottle = Array[String](["THAT WAS... QUITE IMPRESSIVE", "HOW ABOUT YOU USE THOSE SKILLS TO KILL THE TARGET?", "CAN YOU SAVE YOUR PARTY TRICKS FOR LATER?", "YES, I KNOW YOU CAN SNIPE, THAT IS WHY WE HIRED YOU", "CAN YOU PLEASE FOCUS ON THE MISSION?", "YOU ARE EXTREMELY ANNOYING."])
 _bottleTex = ExtResource("3_8gbba")
-commentsMoon = Array[String](["OUR CURRENT INTEL SUGGESTS THAT FORMER AGENT LEPUS IS NOT ON THE MOON.", "EVEN IF THEY WERE YOUR BULLET WOULD NOT REACH... OBVIOUSLY", "WHY ARE YOU DOING THIS?", "PLEASE STOP MESSING AROUND!", "YOU ARE NOT FUNNY."])
+commentsMoon = Array[String](["OUR CURRENT INTEL SUGGESTS THAT FORMER AGENT LEPUS IS NOT ON THE MOON.", "EVEN IF THEY WERE UP THERE YOUR BULLET WOULD NOT REACH THEM... OBVIOUSLY", "YOUR BULLET WOULD NEED TO BE 12 TIMES FASTER TO EVEN HAVE A CHANCE TO REACH THE MOON!", "WHY ARE YOU DOING THIS?", "PLEASE STOP MESSING AROUND!", "YOU ARE NOT FUNNY."])
 _moonTex = ExtResource("8_6iyac")
 commentsExpired = Array[String](["HOW DID YOU NOT SEE THEM?? THEY WERE RIGHT THERE!", "YOU KNOW YOU ONLY HAVE 20 SECONDS, RIGHT??", "PLEASE FOCUS.", "ARE YOU EVEN AWAKE?", "HELLLLOOO?", "HELLLLOOOOOOOOOO???", "NO SLEEPING ON THE JOB!"])
 _expiredTex = ExtResource("10_jkdf5")
@@ -682,6 +682,20 @@ text = "███ LEPUS HAS ███ ██████ IN ███ ███�
 
 
 YOUR MISSION IS ELIMANATING FORMER AGENT ███ LEPUS.  *YOU HAVE 20 SECONDS.        *USE WASD TO MOVE.           *USE SPACE TO SHOOT."
+
+[node name="MadeBy" type="RichTextLabel" parent="Start/Paper/TextMod"]
+offset_left = 54.17889
+offset_top = 2599.4978
+offset_right = 3745.0867
+offset_bottom = 2863.9756
+scale = Vector2(0.49873677, 0.49873677)
+theme_override_constants/line_separation = 40
+theme_override_fonts/normal_font = ExtResource("17_r33sp")
+theme_override_fonts/bold_font = ExtResource("17_r33sp")
+theme_override_font_sizes/normal_font_size = 80
+theme_override_font_sizes/bold_font_size = 100
+bbcode_enabled = true
+text = "MADE BY TCHLOK AND ASTUSRUSH FOR 20 SECOND GAME JAM 2025"
 
 [node name="Info" type="RichTextLabel" parent="Start/Paper/TextMod"]
 offset_left = 524.0

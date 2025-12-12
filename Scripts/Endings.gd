@@ -31,14 +31,15 @@ func loadEndingVisuals():
 		_endingExpired()
 		return
 	
-	if flagHitCiv:
-		_endingCiv()
+
+	if flagHitBottle:
+		_endingBottle()
 		return
 	if flagHitLepus:
 		_endingLepus()
 		return
-	if flagHitBottle:
-		_endingBottle()
+	if flagHitCiv:
+		_endingCiv()
 		return
 	if flagHitMoon:
 		_endingMoon()
