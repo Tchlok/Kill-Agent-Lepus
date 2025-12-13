@@ -76,10 +76,14 @@ func _ready():
 	endings.visible=false
 	endings.resetEndingFlags()
 
+
 func _process(delta):
 	if Input.is_action_just_pressed("Mute"):
 		musicMute= not musicMute
 		AudioServer.set_bus_mute(1,musicMute)
+		if musicPlayer!=null:
+			musicPlayer.volume_db=-80 if musicMute else -30
+
 
 	moveAxis=Vector2.ZERO
 	if Input.is_action_pressed("MoveUp"):
@@ -114,6 +118,7 @@ func _process(delta):
 				_newState(GameState.Game)
 				musicPlayer = SoundSpawner.SpawnFromName("Music")
 				musicPlayer.bus="Music"
+				musicPlayer.volume_db=-80 if musicMute else -30
 		GameState.Game:
 			if Input.is_action_just_pressed("Shoot"):
 				shoot()
